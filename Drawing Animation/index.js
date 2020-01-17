@@ -30,11 +30,22 @@ const timer = new Timer(durationInput, startButton, pauseButton);
 /*1 this code will work immitiately and without problem because this in here 
 has refernce, it knows it should point to timer. */
 
-console.log(this); /* both will be window */
+// console.log(this); /* both will be window */
 const sayhello = () => {
   console.log(
     this
   ); /*  because this is arrow, when we have arrow, 
   this inside of it is the same with what is this outside of function */
 };
-sayhello();
+// sayhello();
+
+const hello = {
+  saybye() {
+    console.log(this); /* both points to hello object  */
+    const saybye2 = () => {
+      console.log(this); /* both points to hello object  */
+    };
+    saybye2();
+  }
+};
+hello.saybye();
