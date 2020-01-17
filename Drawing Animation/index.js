@@ -31,21 +31,60 @@ const timer = new Timer(durationInput, startButton, pauseButton);
 has refernce, it knows it should point to timer. */
 
 // console.log(this); /* both will be window */
-const sayhello = () => {
-  console.log(
-    this
-  ); /*  because this is arrow, when we have arrow, 
-  this inside of it is the same with what is this outside of function */
-};
+// const sayhello = () => {
+//   console.log(
+//     this
+//   ); /*  because this is arrow, when we have arrow,
+//   this inside of it is the same with what is this outside of function */
+// };
 // sayhello();
 
-const hello = {
-  saybye() {
-    console.log(this); /* both points to hello object  */
-    const saybye2 = () => {
-      console.log(this); /* both points to hello object  */
-    };
-    saybye2();
+// const hello = {
+//   saybye() {
+//     console.log(this); /* both points to hello object  */
+//     const saybye2 = () => {
+//       console.log(this); /* both points to hello object  */
+//     };
+//     saybye2();
+//   }
+// };
+// hello.saybye();
+
+// function sayhello() {
+//   console.log(this);
+// }
+
+// sayhello.call({
+//   a: '2'
+// }); /* if we use call, bind, apply
+// we say this inside of call points to first parametr of call method
+//  */
+
+// function sayhello() {
+//   console.log(this);
+// }
+
+// // sayhello(); /* global window object */
+
+// const color = {
+//   method: sayhello
+// };
+
+// color.method(); /* this points to color */
+
+const color = {
+  sayhello() {
+    console.log(this.a);
   }
 };
-hello.saybye();
+// const color = {
+//   sayhello() {
+//     console.log(this);
+//   }
+// };
+const anotherObject = {
+  a: 'hello'
+};
+anotherObject.sayhelloatleast = color.sayhello;
+
+anotherObject.sayhelloatleast(); /* this points to anotherObject because it is left of function */
