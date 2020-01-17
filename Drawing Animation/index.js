@@ -5,31 +5,19 @@ class Timer {
     this.pauseButton = pauseButton;
 
     this.startButton.addEventListener('click', this.start);
+    this.pauseButton.addEventListener('click', this.pause);
   }
-  /* start: function() {
-    this.anothermethod();
-    console.log('Time to start the timer!');
-  } THIS IS HOW THE ENGINE SHOW THIS FUNCTION */
 
-  /* we can solve this issue in 2 ways. 
-  start=() => {
-    this.anothermethod(); this will work because under the hood babel
-     put this code to construcor and call there, as a result this will be class in there
-    console.log('Time to start the timer!');
-  } */
-
-  /* another way is below */
-
-  /* this.startButton.addEventListener('click', this.start.bind(this)); */
-
-  start() {
-    this.anothermethod();
-    console.log('Time to start the timer!');
-  }
-  
-  anothermethod() {
-    console.log('we need this method');
-  }
+  start = () => {
+    this.tick();
+    this.intervalhandler = setInterval(this.tick, 1000);
+  };
+  tick = () => {
+    console.log('tick');
+  };
+  pause = () => {
+    clearInterval(this.intervalhandler);
+  };
 }
 
 const durationInput = document.querySelector('#duration');
