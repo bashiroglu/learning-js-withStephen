@@ -16,7 +16,8 @@ const FetchSearchResult = async () => {
 
 ```
 
-After added event listener to our input, whenever we enter the text, the fetch function send request immediately. But this is not efficient, instead we want to send request after waiting 1 sec from last input action. For the we used code or concept below
+- After added event listener to our input, whenever we enter the text, the fetch function send request immediately. But this is not efficient, instead we want to send request after waiting 1 sec from last input action. For the we used code or concept below 
+called debouncing input
 
 ```
 let timeOutId;
