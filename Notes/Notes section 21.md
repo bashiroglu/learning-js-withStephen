@@ -33,3 +33,5 @@ const onInput = event => {
   }, 500);
 };
 ```
+
+The term reusablity, we can think if we move that code to another project, would it work? (with only changing kinda arguments which we give function)
