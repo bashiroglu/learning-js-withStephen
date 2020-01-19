@@ -1,32 +1,40 @@
-const FetchSearchResult = async searchedKeyword => {
-  const response = await axios.get('http://www.omdbapi.com/', {
-    params: {
-      apikey: '41e8565e',
-      s: searchedKeyword
-    }
-  });
-
-  if (response.data.Error) {
-    return [];
-  }
-
-  return response.data.Search;
-};
-createAutoComplete({
-  root: document.querySelector('.autocomplete1'),
+const autoCompleteConfig = {
   renderOption(movie) {
     const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
     return `
-    <img src="${imgSrc}" />
-    ${movie.Title} (${movie.Year})
-  `;
+  <img src="${imgSrc}" />
+  ${movie.Title} (${movie.Year})
+`;
   },
   onOptionSelect(movie) {
     onMovieSelect(movie);
   },
   inputValue(movie) {
     return movie.Title;
+  },
+  async fetchSearchResults(searchedKeyword) {
+    const response = await axios.get('http://www.omdbapi.com/', {
+      params: {
+        apikey: '41e8565e',
+        s: searchedKeyword
+      }
+    });
+
+    if (response.data.Error) {
+      return [];
+    }
+
+    return response.data.Search;
   }
+};
+
+createAutoComplete({
+  root: document.querySelector('#left-autocomplete'),
+  ...autoCompleteConfig
+});
+createAutoComplete({
+  root: document.querySelector('#right-autocomplete'),
+  ...autoCompleteConfig
 });
 
 const onMovieSelect = async movie => {
