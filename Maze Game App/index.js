@@ -3,9 +3,7 @@ const {
   Render,
   Runner,
   World,
-  Bodies,
-  MouseConstraint,
-  Mouse
+  Bodies
 } = Matter;
 
 const engine = Engine.create();
@@ -14,19 +12,13 @@ const render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    width: 800,
+    width: 600,
     height: 600
   }
 });
 Render.run(render);
 Runner.run(Runner.create(), engine);
 
-World.add(
-  world,
-  MouseConstraint.create(engine, {
-    mouse: Mouse.create(render.canvas)
-  })
-);
 
 // Walls
 const walls = [
