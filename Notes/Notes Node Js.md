@@ -1,3 +1,8 @@
+##### Things I didn't fully in last e-commerce projects:
+
+1. node js promises version built in functions.
+2.
+
 ## Node JS
 
 - In node we don't have access different files inside of each other, we make access by using special functions. When we create a function in Node JS environment, it will automatically wrapped by a function which provide access us arguments like **dirname, **filename, require, module. Because of this function we can access different files.
