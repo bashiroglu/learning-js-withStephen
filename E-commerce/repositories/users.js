@@ -13,15 +13,18 @@ class UsersRepository {
     }
   }
   async getAll() {
-    const content = await fs.promises.readFile(this.filename, {
-      encoding: 'utf-8'
-    });
-    console.log(content);
+    return JSON.parse(
+      await fs.promises.readFile(this.filename, {
+        encoding: 'utf-8'
+      })
+    );
   }
 }
 
 const test = async () => {
   const repo = new UsersRepository('users.json');
-  await repo.getAll();
+  let users = await repo.getAll();
+  console.log(users);
 };
+
 test();
