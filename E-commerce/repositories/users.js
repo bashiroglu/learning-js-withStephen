@@ -51,11 +51,23 @@ class UsersRepository {
     if (!record) {
       throw new Error('we cound not find this user');
     }
-    console.log(records);
-    console.log(record);
 
     Object.assign(record, attrs);
     await this.writeAll(records);
+  }
+  async getOneBy(filters) {
+    const records = await this.getAll();
+    for (let record of records) {
+      let found = true;
+      for (let key in filters) {
+        if (record[key] !== filters[key]) {
+          found = false;
+        }
+      }
+      if (found) {
+        return record;
+      }
+    }
   }
 }
 
@@ -63,8 +75,12 @@ const test = async () => {
   const repo = new UsersRepository('users.json');
   // await repo.create({ email: 'bashiroghlu@gmail.com', password: '12345' });
   // let user = await repo.getOne('a4963f47');
-  let user = await repo.update('ec235127', {
-    password: 'ec235127'
+  // let user = await repo.update('ec235127', {
+  //   password: 'ec235127'
+  // });
+  let user = await repo.getOneBy({
+    password: 'ec23s5127',
+    email: 'afsfas@gmail.com'
   });
   console.log(user);
 };
