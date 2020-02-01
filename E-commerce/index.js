@@ -1,6 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const repo = require('./repositories/users');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send(`
@@ -15,26 +19,18 @@ app.get('/', (req, res) => {
   `);
 });
 
-const bodyParser = (req, res, next) => {
-  if (req.method === 'POST') {
-    req.on('data', data => {
-      const parsed = data.toString('utf8').split('&');
-      const formData = {};
-      for (let pair of parsed) {
-        const [key, value] = pair.split('=');
-        formData[key] = value;
-      }
-      req.body = formData;
-      next();
-    });
-  } else {
-    next();
-  }
-};
+app.post('/', async (req, res) => {
+  const { password, email, passwordConfirmation } = req.body;
 
-app.post('/', bodyParser, (req, res) => {
-  console.log(req.body);
-  res.send('Account created!!!');
+  const existingUser = await repo.getOneBy({ email });
+
+  if (existingUser) {
+    return res.send('email in use');
+  }
+  if (password !== passwordConfirmation) {
+    return res.send('password should be the same');
+  }
+  res.send('account created');
 });
 
 app.listen(3000, () => {
