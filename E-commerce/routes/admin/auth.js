@@ -1,56 +1,65 @@
 const express = require('express');
+const { validationResult } = require('express-validator');
 const usersRepo = require('../../repositories/users');
 const signupTemplate = require('../../views/admin/auth/signup');
 const signinTemplate = require('../../views/admin/auth/signin');
+const {
+  requireEmail,
+  requirePassword,
+  requirePasswordConfirmation,
+  requireEmailForSignin,
+  requirePasswordForSignin
+} = require('./validators');
 
 const router = express.Router();
 
 router.get('/signup', (req, res) => {
   res.send(signupTemplate({ req }));
 });
+
 router.get('/signin', (req, res) => {
-  res.send(signinTemplate());
+  res.send(signinTemplate({}));
 });
 
-router.post('/signup', async (req, res) => {
-  const { password, email, passwordConfirmation } = req.body;
+router.post(
+  '/signup',
+  [requireEmail, requirePassword, requirePasswordConfirmation],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send(signupTemplate({ req, errors }));
+    }
+    const { password, email } = req.body;
 
-  const existingUser = await usersRepo.getOneBy({ email });
+    /*  const existingUser = await usersRepo.getOneBy({ email });
 
-  if (existingUser) {
-    return res.send('email in use');
+    if (existingUser) {
+      return res.send('email in use');
+    } */
+    const user = await usersRepo.create({ email, password });
+
+    req.session.userId = user.id;
+
+    res.send('account created');
   }
-  if (password !== passwordConfirmation) {
-    return res.send('password should be the same');
+);
+
+router.post(
+  '/signin',
+  [requireEmailForSignin, requirePasswordForSignin],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send(signinTemplate({ req, errors }));
+    }
+    const { email } = req.body;
+    const user = await usersRepo.getOneBy({ email });
+
+    req.session.userId = user.id;
+
+    res.send('signed in');
   }
-  const user = await usersRepo.create({ email, password });
-
-  req.session.userId = user.id;
-
-  res.send('account created');
-});
-
-router.post('/signin', async (req, res) => {
-  const { password, email } = req.body;
-
-  const user = await usersRepo.getOneBy({ email });
-
-  if (!user) {
-    return res.send('we could not find email');
-  }
-  const validPassword = await usersRepo.comparePasswords(
-    user.password,
-    password
-  );
-
-  if (!validPassword) {
-    return res.send('passworddadda invalid');
-  }
-
-  req.session.userId = user.id;
-
-  res.send('signed in');
-});
+);
 
 router.get('/signout', (req, res) => {
   req.session = null;
