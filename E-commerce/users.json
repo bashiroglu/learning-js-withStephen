@@ -1,7 +1,12 @@
 [
   {
+    "email": "lauraa@example.com",
+    "password": "b13d26d3276de0880bf58e4b81b81f7be95d6ddb7793539ac8ee50981c6b6fc3fa3eedadcae32f2c3dccdaf9e1808f40a00a0229f92615aa7d93631286723e90.5ae152206402dae1",
+    "id": "76106d2f"
+  },
+  {
     "email": "sophie@example.com",
-    "password": "9c97e382c16681407783671b49f21c8f7bdd771bf529446d46b602b3c4a8b2cabec1eff299bf18d4566e7f42bd54d64692f150a76d7edc914f6c9e627ea1b55f.0c8a132b8c718ca9",
-    "id": "081d0a2a"
+    "password": "d040089dec6700b2133bf58af6373af3afe6717a6728283fd96e1d60675727f84f85452d738d999eef5e36e6ea2200500dd58b817a0c5ef33576eb9a2f2023a9.a58db0bb472225bf",
+    "id": "42a92089"
   }
 ]
