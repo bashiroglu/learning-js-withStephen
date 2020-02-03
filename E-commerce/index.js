@@ -15,6 +15,7 @@ app.use(
     keys: ['mysecretkey']
   })
 );
+
 app.use(authRouter);
 app.use(adminProductsRouter);
 app.use(productsRouter);
