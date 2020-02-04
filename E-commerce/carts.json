@@ -16,11 +16,11 @@
       },
       {
         "id": "62b582ba",
-        "quantity": 2
+        "quantity": 3
       },
       {
         "id": "e7fccbd5",
-        "quantity": 3
+        "quantity": 4
       },
       {
         "id": "9317ff17",
@@ -28,5 +28,18 @@
       }
     ],
     "id": "afc2666f"
+  },
+  {
+    "items": [
+      {
+        "id": "2c8745bb",
+        "quantity": 1
+      },
+      {
+        "id": "62b582ba",
+        "quantity": 1
+      }
+    ],
+    "id": "992df66b"
   }
 ]
