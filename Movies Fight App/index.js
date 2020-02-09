@@ -2,18 +2,18 @@ const autoCompleteConfig = {
   renderOption(movie) {
     const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
     return `
-  <img src="${imgSrc}" />
-  ${movie.Title} (${movie.Year})
-`;
+      <img src="${imgSrc}" />
+      ${movie.Title} (${movie.Year})
+    `;
   },
   inputValue(movie) {
     return movie.Title;
   },
-  async fetchSearchResults(searchedKeyword) {
+  async fetchData(searchTerm) {
     const response = await axios.get('http://www.omdbapi.com/', {
       params: {
-        apikey: '41e8565e',
-        s: searchedKeyword
+        apikey: 'd9835cc5',
+        s: searchTerm
       }
     });
 
@@ -47,7 +47,7 @@ let rightMovie;
 const onMovieSelect = async (movie, summaryElement, side) => {
   const response = await axios.get('http://www.omdbapi.com/', {
     params: {
-      apikey: '41e8565e',
+      apikey: 'd9835cc5',
       i: movie.imdbID
     }
   });
